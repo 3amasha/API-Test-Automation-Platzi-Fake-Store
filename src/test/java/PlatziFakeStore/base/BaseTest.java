@@ -23,7 +23,7 @@ public abstract class BaseTest {
     public void beforeSuite() {
         // Print environment info for reference
         System.out.println("=== Starting API Test Suite ===");
-        System.out.println("Environment: " + ConfigManager.getEnvironment());
+        //System.out.println("Environment: " + ConfigManager.getEnvironment());
         System.out.println("Base URL: " + ConfigManager.getBaseUrl());
     }
 
@@ -35,10 +35,10 @@ public abstract class BaseTest {
     public void setup() {
         // Ensure BaseAPI specs are initialized
         BaseAPI.getRequestSpec();
-        BaseAPI.getOkResponseSpec();
+        BaseAPI.ok200();
 
         // Pre-fetch token (optional) so first authorized call doesn’t wait
-        TokenManager.getToken();
+        TokenManager.getAccessToken();
     }
 
     /**

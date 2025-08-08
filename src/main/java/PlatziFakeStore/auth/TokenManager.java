@@ -3,66 +3,91 @@ package PlatziFakeStore.auth;
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
 import PlatziFakeStore.config.ConfigManager;
+import PlatziFakeStore.models.request.auth.LoginRequest;
+import PlatziFakeStore.models.response.auth.TokenResponse;
 import io.restassured.response.Response;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import static io.restassured.RestAssured.given;
+/**
+ * TokenManager
+ * -------------------------------------------------
+ * - Manages JWT authentication for Escuela JS API
+ * - Handles login, token caching, and refresh
+ * - Integrated with ConfigManager for credentials
+ * - Uses BaseAPI for consistent Rest Assured setup
+ */
+public final class TokenManager {
 
-public class TokenManager {
+    private static String accessToken;
+    private static String refreshToken;
 
-    // Cached token value to reuse across tests
-    private static String token;
-// TODO : Edit file
+    private TokenManager() {
+        // Prevent instantiation
+    }
+
     /**
-     * Returns a valid bearer token. Caches the token after the first retrieval.
+     * Get a valid access token (login if missing).
      */
-    //TODO : Add tokenExpiryTime, update using expiresIn from API if available, or configurable TTL
-    // Add method isTokenExpired
-    public static String getToken() {
-        // If token already fetched, reuse it
-        if (token == null) {
-            // Trigger token request
-            token = generateNewToken();
+    public static synchronized String getAccessToken() {
+        if (accessToken == null) {
+            loginAndCacheTokens();
         }
-        return token;
+        return accessToken;
     }
 
     /**
-     * Generates a new token from the API Authentication endpoint.
-     * Reads clientName and clientEmail from config.properties.
+     * Perform login and store both access & refresh tokens.
      */
-    private static String generateNewToken() {
-        // Read client credentials from config
-      String clientName = ConfigManager.getClientName();
-     String clientEmail = ConfigManager.getClientEmail();
+    private static void loginAndCacheTokens() {
+        LoginRequest loginPayload = new LoginRequest(
+                ConfigManager.getDefaultEmail(),
+                ConfigManager.getDefaultPassword()
+        );
 
-        // Create the request body as a map
-        Map<String, String> requestBody = new HashMap<>();
-        requestBody.put("clientName", clientName);
-        requestBody.put("clientEmail", clientEmail);
+        Response res = BaseAPI
+                .withAnonymous()
+                .body(loginPayload)
+                .post(APIResources.LOGIN.getResource());
 
-        // Send  POST request to get a token
-        Response response = given()
-                .spec(BaseAPI.getRequestSpec())
-                .body(requestBody)
-        .when()
-                .post(APIResources.LOGIN_PRODUCT.getResource())
-        .then()
-                .spec(BaseAPI.getCreatedResponseSpec())
+        TokenResponse tokens = res.then()
+                .spec(BaseAPI.ok200()) // Escuela API returns 200 for login
                 .extract()
-                .response();
+                .as(TokenResponse.class);
 
-        // Extract token from response JSON
-        return response.jsonPath().getString("accessToken");
-
-
+        accessToken = tokens.getAccessToken();
+        refreshToken = tokens.getRefreshToken();
     }
 
-    public static String refreshToken() {
-        token = generateNewToken();
-        return token;
+    /**
+     * Refresh the access token using the refresh token.
+     * Falls back to login if refresh fails.
+     */
+    public static synchronized void refreshAccessToken() {
+        if (refreshToken == null) {
+            loginAndCacheTokens();
+            return;
+        }
+
+        Response res = BaseAPI
+                .withAnonymous()
+                .body(Map.of("refreshToken", refreshToken))
+                .post(APIResources.REFRESH_TOKEN.getResource());
+
+        if (res.statusCode() == 200) {
+            TokenResponse tokens = res.as(TokenResponse.class);
+            accessToken = tokens.getAccessToken();
+            refreshToken = tokens.getRefreshToken();
+        } else {
+            loginAndCacheTokens();
+        }
     }
 
+    /**
+     * Clears cached tokens (useful for test resets).
+     */
+    public static void clearTokens() {
+        accessToken = null;
+        refreshToken = null;
+    }
 }

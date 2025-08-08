@@ -7,14 +7,24 @@ import java.util.Properties;
 
 /**
  * ConfigManager
- * - Loads environment-specific properties
- * - Provides dedicated getters for each configuration key
+ * --------------------------------------------------
+ * - Loads environment-specific properties at runtime
  * - Supports system property overrides (Maven/CI)
+ * - Provides typed getters for configuration keys
+ * - Fully integrated with APIResources & BaseAPI
+ * - Centralized source of truth for all configuration
+ *
+ * Usage:
+ *   ConfigManager.getBaseUrl()
+ *   ConfigManager.getDefaultEmail()
+ *
+ * Environment Switching:
+ *   mvn clean test -Denv=staging
  */
 public final class ConfigManager {
-    // TODO : Edit file
-    private static final Properties properties = new Properties();
 
+    private static final Properties properties = new Properties();
+    private static final String DEFAULT_ENV = "dev"; // fallback if not provided
 
     private ConfigManager() {
         // Prevent instantiation
@@ -28,40 +38,17 @@ public final class ConfigManager {
         }
     }
 
-    // -----------------------------------------------------------------
-    // Dedicated Getters for Each Key
-    // -----------------------------------------------------------------
 
+
+    // ======================================================
+    // BASE & ENVIRONMENT CONFIG
+    // ======================================================
     public static String getBaseUrl() {
         return getProperty("base.url");
     }
 
-    public static String getBackupBaseUrl() {
-        return getProperty("base.url.backup");
-    }
-
-    public static String getClientName() {
-        return getProperty("client.name");
-    }
-
-    public static String getClientEmail() {
-        return getProperty("client.email");
-    }
-
-    public static String getDefaultCustomerName() {
-        return getProperty("default.customer.name");
-    }
-
-    public static int getDefaultProductId() {
-        return Integer.parseInt(getProperty("default.product.id"));
-    }
-
-    public static int getDefaultQuantity() {
-        return Integer.parseInt(getProperty("default.quantity"));
-    }
-
-    public static String getDefaultComment() {
-        return getProperty("default.comment");
+    public static String getEnvironmentName() {
+        return getProperty("env.name");
     }
 
     public static boolean isRequestLoggingEnabled() {
@@ -80,15 +67,60 @@ public final class ConfigManager {
         return Integer.parseInt(getProperty("timeout.read"));
     }
 
-    public static String getEnvironment() {
-        return getProperty("env.name");
+    public static long getMaxResponseTimeout() {
+        return Long.parseLong(getProperty("timeout.response"));
     }
 
+    // ======================================================
+    // AUTHENTICATION
+    // ======================================================
+    public static String getDefaultEmail() {
+        return getProperty("default.email");
+    }
+
+    public static String getDefaultPassword() {
+        return getProperty("default.password");
+    }
+
+    // ======================================================
+    // API ENDPOINTS (SYNCED WITH APIResources)
+    // ======================================================
+    public static String getProductsEndpoint() {
+        return getProperty("endpoint.products");
+    }
+
+    public static String getCategoriesEndpoint() {
+        return getProperty("endpoint.categories");
+    }
+
+    public static String getUsersEndpoint() {
+        return getProperty("endpoint.users");
+    }
+
+    public static String getLoginEndpoint() {
+        return getProperty("endpoint.auth.login");
+    }
+
+    public static String getRefreshTokenEndpoint() {
+        return getProperty("endpoint.auth.refresh-token");
+    }
+
+    public static String getProfileEndpoint() {
+        return getProperty("endpoint.auth.profile");
+    }
+
+    public static String getFilesEndpoint() {
+        return getProperty("endpoint.files");
+    }
+
+    // ======================================================
+    // RETRY / STABILITY SETTINGS
+    // ======================================================
     public static int getMaxRetryAttempts() {
         return Integer.parseInt(getProperty("retry.max.attempts"));
     }
 
-    public static int getRetryDelay() {
+    public static int getRetryDelayMs() {
         return Integer.parseInt(getProperty("retry.delay.ms"));
     }
 
@@ -96,14 +128,14 @@ public final class ConfigManager {
         return Boolean.parseBoolean(getProperty("retry.enabled"));
     }
 
-    // -----------------------------------------------------------------
-    // Internal helper to get property with system override
-    // -----------------------------------------------------------------
+    // ======================================================
+    // INTERNAL HELPER
+    // ======================================================
     private static String getProperty(String key) {
         String value = System.getProperty(key, properties.getProperty(key));
-        if (value == null) {
+        if (value == null || value.isBlank()) {
             throw new RuntimeException("❌ Missing configuration key: " + key);
         }
-        return value;
+        return value.trim();
     }
 }

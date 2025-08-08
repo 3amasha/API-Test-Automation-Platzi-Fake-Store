@@ -1,65 +1,87 @@
 package PlatziFakeStore.base;
 
 /**
- * Enum to manage all API resource paths centrally for the Simple Grocery Store API.
- * Each constant represents a specific endpoint (resource).
- * This ensures type safety, clean maintainability, and avoids hardcoding strings across tests.
+ * APIResources
+ * -------------
+ * Central registry of EscuelaJS API endpoints.
+ * Each enum constant represents a specific endpoint.
+ * Includes helpers for path params and query params construction.
  */
 public enum APIResources {
-
-    // ========================= Products =========================
-    CREATE_PRODUCT("/products/"),
+    // ------------------ Products ------------------
+    CREATE_PRODUCT("/products"),
     GET_ALL_PRODUCTS("/products"),
-    GET_SINGLE_PRODUCT("/products/{id}"),
+    GET_PRODUCT_BY_ID("/products/{id}"),
+    GET_PRODUCT_BY_SLUG("/products/slug/{slug}"),
     UPDATE_PRODUCT("/products/{id}"),
     DELETE_PRODUCT("/products/{id}"),
+    GET_PRODUCTS_PAGINATED("/products?offset={offset}&limit={limit}"),
+    GET_RELATED_BY_ID("/products/{id}/related"),
+    GET_RELATED_BY_SLUG("/products/slug/{slug}/related"),
 
+    // ------------------ Categories ------------------
+    GET_ALL_CATEGORIES("/categories"),
+    GET_CATEGORY_BY_ID("/categories/{id}"),
+    CREATE_CATEGORY("/categories"),
+    UPDATE_CATEGORY("/categories/{id}"),
+    DELETE_CATEGORY("/categories/{id}"),
 
-    // ========================= LOGIN =========================
-    // TODO : edit it in TokenManager.java
-    LOGIN_PRODUCT("/auth/login");
+    // ------------------ Users ------------------
+    GET_ALL_USERS("/users"),
+    GET_USER_BY_ID("/users/{id}"),
+    CREATE_USER("/users"),
+    UPDATE_USER("/users/{id}"),
+    DELETE_USER("/users/{id}"),
 
+    // ------------------ Authentication ------------------
+    LOGIN("/auth/login"),
+    REFRESH_TOKEN("/auth/refresh-token"),
+    PROFILE("/auth/profile"),
 
-    // Path for the resource
+    // ------------------ Files / Upload ------------------
+    UPLOAD_FILE("/files/upload"),
+    GET_FILE("/files/{id}");
+
     private final String resource;
 
-    /**
-     * Constructor to assign the endpoint path to the enum constant
-     *
-     * @param resource the API endpoint path
-     */
     APIResources(String resource) {
         this.resource = resource;
     }
 
-    /**
-     * Method to retrieve the actual endpoint string
-     *
-     * @return the endpoint path
-     */
+    /** Returns the raw endpoint string as defined in Swagger. */
     public String getResource() {
         return resource;
     }
 
     /**
-     * Returns the resource path with placeholders replaced by provided values.
-     * To avoids manual .replace() calls in every test.
+     * Injects path parameter values into the endpoint definition.
      * Example:
-     * APIResources.GET_PRODUCT_BY_ID.withParams("123") -> "/products/123"
-     *
-     * @param params the values to replace in order of appearance
-     * @return formatted endpoint path
+     *   GET_PRODUCT_BY_ID.withParams("123") -> "/products/123"
      */
     public String withParams(String... params) {
-        String formattedResource = resource;
+        String formatted = resource;
         for (String param : params) {
-            formattedResource = formattedResource.replaceFirst("\\{[^/]+}", param);
+            formatted = formatted.replaceFirst("\\{[^/]+}", param);
         }
-        return formattedResource;
+        return formatted;
     }
 
-
-
-
-
+    /**
+     * Appends query parameters to the endpoint.
+     * Example:
+     *   GET_ALL_PRODUCTS.withQueryParams("offset=0", "limit=10") -> "/products?offset=0&limit=10"
+     */
+    public String withQueryParams(String... queryParams) {
+        StringBuilder sb = new StringBuilder(resource);
+        if (queryParams.length > 0) {
+            sb.append("?");
+            for (int i = 0; i < queryParams.length; i++) {
+                sb.append(queryParams[i]);
+                if (i < queryParams.length - 1) {
+                    sb.append("&");
+                }
+            }
+        }
+        return sb.toString();
+    }
 }
