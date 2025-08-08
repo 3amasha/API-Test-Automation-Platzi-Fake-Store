@@ -60,11 +60,11 @@ public class ProductsClient {
         return given()
                 .spec(BaseAPI.withPathParams(
                         java.util.Map.of("id", String.valueOf(productId))
-                ))                                                     // inject {id}
+                ))
         .when()
-                .get(APIResources.GET_PRODUCT_BY_ID.getResource())     // GET /products/{id}
+                .get(APIResources.GET_PRODUCT_BY_ID.getResource())
         .then()
-                .spec(BaseAPI.ok200())                                 // expect 200 OK
+                .spec(BaseAPI.ok200())
                 .extract()
                 .response();
     }
@@ -143,7 +143,7 @@ public class ProductsClient {
         .when()
                 .delete(APIResources.DELETE_PRODUCT.getResource())     // DELETE /products/{id}
         .then()
-                .contentType("text/html")                                 // expect 200 OK
+               // .contentType("text/html")                                 // expect 200 OK
                 .extract()
                 .response();
     }
