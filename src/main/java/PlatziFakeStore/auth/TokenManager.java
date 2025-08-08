@@ -2,12 +2,15 @@ package PlatziFakeStore.auth;
 
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
+import PlatziFakeStore.clients.AuthClient;
 import PlatziFakeStore.config.ConfigManager;
 import PlatziFakeStore.models.request.auth.LoginRequest;
 import PlatziFakeStore.models.response.auth.TokenResponse;
 import io.restassured.response.Response;
 
 import java.util.Map;
+
+import static PlatziFakeStore.base.BaseAPI.getRequestSpec;
 
 /**
  * TokenManager
@@ -25,30 +28,24 @@ public final class TokenManager {
     private TokenManager() {
         // Prevent instantiation
     }
-
+/*
     /**
-     * Get a valid access token (login if missing).
+     * Get a valid access token (From Login).
      */
-    public static synchronized String getAccessToken() {
+   /* public static synchronized String getAccessToken(String clientEmail, String clientPassword) {
         if (accessToken == null) {
-            loginAndCacheTokens();
+            loginAndCacheTokens(clientEmail, clientPassword);
         }
         return accessToken;
-    }
+    }*/
 
     /**
      * Perform login and store both access & refresh tokens.
      */
-    private static void loginAndCacheTokens() {
-        LoginRequest loginPayload = new LoginRequest(
-                ConfigManager.getDefaultEmail(),
-                ConfigManager.getDefaultPassword()
-        );
+  /*  private static void loginAndCacheTokens(String clientEmail, String clientPassword) {
+        LoginRequest loginPayload = new LoginRequest(clientEmail, clientPassword);
 
-        Response res = BaseAPI
-                .withAnonymous()
-                .body(loginPayload)
-                .post(APIResources.LOGIN.getResource());
+        Response res = AuthClient
 
         TokenResponse tokens = res.then()
                 .spec(BaseAPI.ok200()) // Escuela API returns 200 for login
@@ -57,20 +54,20 @@ public final class TokenManager {
 
         accessToken = tokens.getAccessToken();
         refreshToken = tokens.getRefreshToken();
-    }
+    }*/
 
     /**
      * Refresh the access token using the refresh token.
      * Falls back to login if refresh fails.
      */
-    public static synchronized void refreshAccessToken() {
+   /* public static synchronized void refreshAccessToken() {
         if (refreshToken == null) {
             loginAndCacheTokens();
             return;
         }
 
         Response res = BaseAPI
-                .withAnonymous()
+                .spec(getRequestSpec())
                 .body(Map.of("refreshToken", refreshToken))
                 .post(APIResources.REFRESH_TOKEN.getResource());
 
@@ -81,7 +78,7 @@ public final class TokenManager {
         } else {
             loginAndCacheTokens();
         }
-    }
+    }*/
 
     /**
      * Clears cached tokens (useful for test resets).

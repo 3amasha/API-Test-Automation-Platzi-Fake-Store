@@ -36,9 +36,6 @@ public abstract class BaseTest {
         // Ensure BaseAPI specs are initialized
         BaseAPI.getRequestSpec();
         BaseAPI.ok200();
-
-        // Pre-fetch token (optional) so first authorized call doesn’t wait
-        TokenManager.getAccessToken();
     }
 
     /**
@@ -51,18 +48,4 @@ public abstract class BaseTest {
         BaseAPI.resetSpecs();
     }
 
-    /**
-     * Helper to get an authorized RequestSpecification.
-     * Can be used in tests to avoid calling TokenManager directly.
-     */
-    protected static io.restassured.specification.RequestSpecification authSpec() {
-        return BaseAPI.getAuthorizedRequestSpec();
-    }
-
-    /**
-     * Helper to get a basic (unauthorized) RequestSpecification.
-     */
-    protected static io.restassured.specification.RequestSpecification baseSpec() {
-        return BaseAPI.getRequestSpec();
-    }
 }

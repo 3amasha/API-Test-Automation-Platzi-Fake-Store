@@ -71,62 +71,6 @@ public final class ConfigManager {
         return Long.parseLong(getProperty("timeout.response"));
     }
 
-    // ======================================================
-    // AUTHENTICATION
-    // ======================================================
-    public static String getDefaultEmail() {
-        return getProperty("default.email");
-    }
-
-    public static String getDefaultPassword() {
-        return getProperty("default.password");
-    }
-
-    // ======================================================
-    // API ENDPOINTS (SYNCED WITH APIResources)
-    // ======================================================
-    public static String getProductsEndpoint() {
-        return getProperty("endpoint.products");
-    }
-
-    public static String getCategoriesEndpoint() {
-        return getProperty("endpoint.categories");
-    }
-
-    public static String getUsersEndpoint() {
-        return getProperty("endpoint.users");
-    }
-
-    public static String getLoginEndpoint() {
-        return getProperty("endpoint.auth.login");
-    }
-
-    public static String getRefreshTokenEndpoint() {
-        return getProperty("endpoint.auth.refresh-token");
-    }
-
-    public static String getProfileEndpoint() {
-        return getProperty("endpoint.auth.profile");
-    }
-
-    public static String getFilesEndpoint() {
-        return getProperty("endpoint.files");
-    }
-
-    // ======================================================
-    // RETRY / STABILITY SETTINGS
-    // ======================================================
-    public static int getMaxRetryAttempts() {
-        return Integer.parseInt(getProperty("retry.max.attempts"));
-    }
-
-    public static int getRetryDelayMs() {
-        return Integer.parseInt(getProperty("retry.delay.ms"));
-    }
-
-    public static boolean isRetryEnabled() {
-        return Boolean.parseBoolean(getProperty("retry.enabled"));
-    }
 
     // ======================================================
     // INTERNAL HELPER
@@ -134,7 +78,7 @@ public final class ConfigManager {
     private static String getProperty(String key) {
         String value = System.getProperty(key, properties.getProperty(key));
         if (value == null || value.isBlank()) {
-            throw new RuntimeException("❌ Missing configuration key: " + key);
+            throw new RuntimeException("Missing configuration key: " + key);
         }
         return value.trim();
     }

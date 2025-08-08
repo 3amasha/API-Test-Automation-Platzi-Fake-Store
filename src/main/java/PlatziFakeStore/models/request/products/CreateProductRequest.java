@@ -9,8 +9,6 @@ public class CreateProductRequest {
     private String[] images;
 
 
-    // Default constructor
-    public CreateProductRequest() {}
 
     // Parameterized constructor
     public CreateProductRequest(String title, double price, String description, int categoryId, String[] images) {
@@ -26,7 +24,6 @@ public class CreateProductRequest {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -34,7 +31,6 @@ public class CreateProductRequest {
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
@@ -42,7 +38,6 @@ public class CreateProductRequest {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -50,7 +45,6 @@ public class CreateProductRequest {
     public int getCategoryId() {
         return categoryId;
     }
-
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
@@ -58,7 +52,6 @@ public class CreateProductRequest {
     public String[] getImages() {
         return images;
     }
-
     public void setImages(String[] images) {
         this.images = images;
     }

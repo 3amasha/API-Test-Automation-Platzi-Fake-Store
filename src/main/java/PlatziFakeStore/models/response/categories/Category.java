@@ -1,6 +1,4 @@
-package PlatziFakeStore.models.shared;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package PlatziFakeStore.models.response.categories;
 
 public class Category {
 

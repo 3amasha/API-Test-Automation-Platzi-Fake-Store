@@ -1,8 +1,7 @@
 package PlatziFakeStore.models.response.products;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import PlatziFakeStore.models.shared.Category;
+import PlatziFakeStore.models.response.categories.Category;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -29,11 +28,12 @@ public class Product {
    // @JsonProperty("images")
     private List<String> images;
 
- //@JsonProperty("creationAt")
- private String creationAt;
+     //@JsonProperty("creationAt")
+     private String creationAt;
 
- //@JsonProperty("updatedAt")
- private String updatedAt;
+     //@JsonProperty("updatedAt")
+     private String updatedAt;
+
 
     // Getters and setters
 

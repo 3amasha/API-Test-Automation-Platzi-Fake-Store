@@ -3,7 +3,10 @@ package PlatziFakeStore.clients;
 import PlatziFakeStore.base.BaseAPI;
 import PlatziFakeStore.models.request.products.CreateProductRequest;
 import PlatziFakeStore.base.APIResources;
+import PlatziFakeStore.models.response.products.Product;
 import io.restassured.response.Response;
+
+import java.security.PublicKey;
 
 import static io.restassured.RestAssured.given;
 
@@ -21,7 +24,7 @@ public class ProductsClient {
      */
     public Response createProduct(CreateProductRequest requestBody) {
         return given()
-                .spec(BaseAPI.getAuthorizedRequestSpec())              // authorized request spec
+                .spec(BaseAPI.getRequestSpec())              // authorized request spec
                 .body(requestBody)                                     // POJO → JSON
         .when()
                 .post(APIResources.CREATE_PRODUCT.getResource())       // POST /products
@@ -58,10 +61,102 @@ public class ProductsClient {
                 .spec(BaseAPI.withPathParams(
                         java.util.Map.of("id", String.valueOf(productId))
                 ))                                                     // inject {id}
+        .when()
+                .get(APIResources.GET_PRODUCT_BY_ID.getResource())     // GET /products/{id}
+        .then()
+                .spec(BaseAPI.ok200())                                 // expect 200 OK
+                .extract()
+                .response();
+    }
+
+    public Response getProductByInvalidId(int productId) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("id", String.valueOf(productId))
+                ))                                                     // inject {id}
                 .when()
                 .get(APIResources.GET_PRODUCT_BY_ID.getResource())     // GET /products/{id}
                 .then()
-                .spec(BaseAPI.ok200())                                 // expect 200 OK
+                .spec(BaseAPI.badRequest400())
+                .extract()
+                .response();
+    }
+
+    public Response getProductBySlug(String productSlug) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("slug", String.valueOf(productSlug))
+                ))                                                     // inject {id}
+                .when()
+                .get(APIResources.GET_PRODUCT_BY_SLUG.getResource())
+                .then()
+                .spec(BaseAPI.ok200())
+                .extract()
+                .response();
+    }
+
+    public Response getProductByInvalidSlug(String productSlug) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("slug", String.valueOf(productSlug))
+                ))
+                .when()
+                .get(APIResources.GET_PRODUCT_BY_SLUG.getResource())
+                .then()
+                .spec(BaseAPI.badRequest400())
+                .extract()
+                .response();
+    }
+
+    public Response updateProductById (int productId, Product updatePayload) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("id", String.valueOf(productId))
+                ))
+                .body(updatePayload)
+        .when()
+                .get(APIResources.UPDATE_PRODUCT.getResource())
+        .then()
+                .spec(BaseAPI.ok200())
+                .extract()
+                .response();
+    }
+    public Response updateProductByInvalidId(int productId, Product updatePayload) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("id", String.valueOf(productId))
+                ))
+                .body(updatePayload)
+        .when()
+                .get(APIResources.UPDATE_PRODUCT.getResource())
+        .then()
+                .spec(BaseAPI.badRequest400())
+                .extract()
+                .response();
+    }
+
+    public  Response deleteProductById(int productId) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("id", String.valueOf(productId))
+                ))                                                     // inject {id}
+        .when()
+                .delete(APIResources.DELETE_PRODUCT.getResource())     // DELETE /products/{id}
+        .then()
+                .contentType("text/html")                                 // expect 200 OK
+                .extract()
+                .response();
+    }
+
+    public  Response deleteProductByInvalidId(int productId) {
+        return given()
+                .spec(BaseAPI.withPathParams(
+                        java.util.Map.of("id", String.valueOf(productId))
+                ))
+        .when()
+                .delete(APIResources.DELETE_PRODUCT.getResource())     // DELETE /products/{id}
+        .then()
+                .spec(BaseAPI.badRequest400())
                 .extract()
                 .response();
     }

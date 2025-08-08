@@ -63,19 +63,12 @@ public class BaseAPI {
     }
 
     /** Generic request with Authorization header */
-    public static RequestSpecification getAuthorizedRequestSpec() {
+    /*public static RequestSpecification getAuthorizedRequestSpec(String clientEmail, String clientPassword) {
         return with()
                 .spec(getRequestSpec())
-                .header("Authorization", "Bearer " + TokenManager.getAccessToken());
-    }
+                .header("Authorization", "Bearer " + TokenManager.getAccessToken(clientEmail, clientPassword));
+    }*/
 
-    public static RequestSpecification withAnonymous() {
-        return new RequestSpecBuilder()
-                .setBaseUri(ConfigManager.getBaseUrl()) // Base URL from config
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
-                .build(); // No Authorization header
-    }
 
     /** Request with custom headers */
     public static RequestSpecification withHeaders(Map<String, String> headers) {
@@ -89,28 +82,6 @@ public class BaseAPI {
         return with()
                 .spec(getRequestSpec())
                 .pathParams(pathParams);
-    }
-
-    /** Request to a specific API resource (no path/query params) */
-    public static RequestSpecification toResource(APIResources resource) {
-        return with()
-                .spec(getRequestSpec())
-                .basePath(resource.getResource());
-    }
-
-    /** Request to a specific API resource with path params */
-    public static RequestSpecification toResource(APIResources resource, Map<String, String> pathParams) {
-        return with()
-                .spec(getRequestSpec())
-                .basePath(resource.getResource())
-                .pathParams(pathParams);
-    }
-
-    /** Authorized request to a specific API resource */
-    public static RequestSpecification toAuthorizedResource(APIResources resource) {
-        return with()
-                .spec(getAuthorizedRequestSpec())
-                .basePath(resource.getResource());
     }
 
     /* ****************************
