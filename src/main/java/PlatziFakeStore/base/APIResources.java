@@ -22,7 +22,8 @@ public enum APIResources {
     // ------------------ Categories ------------------
     GET_ALL_CATEGORIES("/categories"),
     GET_CATEGORY_BY_ID("/categories/{id}"),
-    CREATE_CATEGORY("/categories"),
+    GET_CATEGORY_BY_SLUG("/categories/slug/{slug}"),
+    CREATE_CATEGORY("/categories/"),
     UPDATE_CATEGORY("/categories/{id}"),
     DELETE_CATEGORY("/categories/{id}"),
 

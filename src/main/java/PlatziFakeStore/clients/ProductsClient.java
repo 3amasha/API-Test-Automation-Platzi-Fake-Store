@@ -10,52 +10,33 @@ import java.security.PublicKey;
 
 import static io.restassured.RestAssured.given;
 
-/**
- * Client for interacting with /products endpoints of the Platzi Fake Store API.
- * Uses BaseAPI for request/response specs.
- */
+
 public class ProductsClient {
 
-    /**
-     * Create a product (requires authorization).
-     *
-     * @param requestBody POJO containing product details.
-     * @return Response from API.
-     */
+
     public Response createProduct(CreateProductRequest requestBody) {
         return given()
-                .spec(BaseAPI.getRequestSpec())              // authorized request spec
-                .body(requestBody)                                     // POJO → JSON
+                .spec(BaseAPI.getRequestSpec())
+                .body(requestBody)
         .when()
-                .post(APIResources.CREATE_PRODUCT.getResource())       // POST /products
+                .post(APIResources.CREATE_PRODUCT.getResource())
         .then()
-                .spec(BaseAPI.created201())                            // expect 201 Created
+                .spec(BaseAPI.created201())
                 .extract()
                 .response();
     }
 
-    /**
-     * Get all products (no authorization required).
-     *
-     * @return Response from API.
-     */
     public Response getAllProducts() {
         return given()
-                .spec(BaseAPI.getRequestSpec())                        // standard request spec
+                .spec(BaseAPI.getRequestSpec())
         .when()
-                .get(APIResources.GET_ALL_PRODUCTS.getResource())      // GET /products
+                .get(APIResources.GET_ALL_PRODUCTS.getResource())
         .then()
-                .spec(BaseAPI.ok200())                                 // expect 200 OK
+                .spec(BaseAPI.ok200())
                 .extract()
                 .response();
     }
 
-    /**
-     * Get a product by ID (no authorization required).
-     *
-     * @param productId ID of the product.
-     * @return Response from API.
-     */
     public Response getProductById(int productId) {
         return given()
                 .spec(BaseAPI.withPathParams(
@@ -73,10 +54,10 @@ public class ProductsClient {
         return given()
                 .spec(BaseAPI.withPathParams(
                         java.util.Map.of("id", String.valueOf(productId))
-                ))                                                     // inject {id}
-                .when()
-                .get(APIResources.GET_PRODUCT_BY_ID.getResource())     // GET /products/{id}
-                .then()
+                ))
+        .when()
+                .get(APIResources.GET_PRODUCT_BY_ID.getResource())
+        .then()
                 .spec(BaseAPI.badRequest400())
                 .extract()
                 .response();
@@ -86,10 +67,10 @@ public class ProductsClient {
         return given()
                 .spec(BaseAPI.withPathParams(
                         java.util.Map.of("slug", String.valueOf(productSlug))
-                ))                                                     // inject {id}
-                .when()
+                ))
+        .when()
                 .get(APIResources.GET_PRODUCT_BY_SLUG.getResource())
-                .then()
+        .then()
                 .spec(BaseAPI.ok200())
                 .extract()
                 .response();
@@ -100,9 +81,9 @@ public class ProductsClient {
                 .spec(BaseAPI.withPathParams(
                         java.util.Map.of("slug", String.valueOf(productSlug))
                 ))
-                .when()
+        .when()
                 .get(APIResources.GET_PRODUCT_BY_SLUG.getResource())
-                .then()
+        .then()
                 .spec(BaseAPI.badRequest400())
                 .extract()
                 .response();
@@ -115,7 +96,7 @@ public class ProductsClient {
                 ))
                 .body(updatePayload)
         .when()
-                .get(APIResources.UPDATE_PRODUCT.getResource())
+                .put(APIResources.UPDATE_PRODUCT.getResource())
         .then()
                 .spec(BaseAPI.ok200())
                 .extract()
@@ -128,7 +109,7 @@ public class ProductsClient {
                 ))
                 .body(updatePayload)
         .when()
-                .get(APIResources.UPDATE_PRODUCT.getResource())
+                .put(APIResources.UPDATE_PRODUCT.getResource())
         .then()
                 .spec(BaseAPI.badRequest400())
                 .extract()
@@ -139,11 +120,11 @@ public class ProductsClient {
         return given()
                 .spec(BaseAPI.withPathParams(
                         java.util.Map.of("id", String.valueOf(productId))
-                ))                                                     // inject {id}
+                ))
         .when()
-                .delete(APIResources.DELETE_PRODUCT.getResource())     // DELETE /products/{id}
+                .delete(APIResources.DELETE_PRODUCT.getResource())
         .then()
-               // .contentType("text/html")                                 // expect 200 OK
+               // .contentType("text/html")
                 .extract()
                 .response();
     }
@@ -154,7 +135,7 @@ public class ProductsClient {
                         java.util.Map.of("id", String.valueOf(productId))
                 ))
         .when()
-                .delete(APIResources.DELETE_PRODUCT.getResource())     // DELETE /products/{id}
+                .delete(APIResources.DELETE_PRODUCT.getResource())
         .then()
                 .spec(BaseAPI.badRequest400())
                 .extract()

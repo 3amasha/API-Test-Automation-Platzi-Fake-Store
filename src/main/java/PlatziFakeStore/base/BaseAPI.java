@@ -46,7 +46,7 @@ public class BaseAPI {
         if (threadLocalRequestSpec.get() == null) {
             RequestSpecBuilder builder = new RequestSpecBuilder()
                     .setBaseUri(ConfigManager.getBaseUrl())
-                   // .setContentType(ContentType.JSON)
+                   .setContentType(ContentType.JSON)
                     .setConfig(RestAssuredConfig.config().httpClient(
                             HttpClientConfig.httpClientConfig()
                                     .setParam("http.connection.timeout", ConfigManager.getConnectionTimeout())

@@ -6,11 +6,8 @@ public class CreateProductRequest {
     private double price;
     private String description;
     private int categoryId;
-    private String[] images;
+    private String[] images; // TODO : make image List<String> instead of String[] for better flexibility
 
-
-
-    // Parameterized constructor
     public CreateProductRequest(String title, double price, String description, int categoryId, String[] images) {
         this.title = title;
         this.price = price;
@@ -18,8 +15,6 @@ public class CreateProductRequest {
         this.categoryId = categoryId;
         this.images = images;
     }
-
-    // --- Getters and Setters ---
 
     public String getTitle() {
         return title;

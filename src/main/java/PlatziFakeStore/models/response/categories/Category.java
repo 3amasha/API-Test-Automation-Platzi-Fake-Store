@@ -1,25 +1,18 @@
 package PlatziFakeStore.models.response.categories;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Category {
 
-    //@JsonProperty("id")
     private int id;
-
-   // @JsonProperty("name")
     private String name;
-
     private String slug;
-
-    //@JsonProperty("image")
     private String image;
-
-    //@JsonProperty("creationAt")
     private String creationAt;
-
-    //@JsonProperty("updatedAt")
     private String updatedAt;
 
-    // Getters & Setters
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

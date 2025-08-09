@@ -2,43 +2,28 @@ package PlatziFakeStore.models.response.products;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import PlatziFakeStore.models.response.categories.Category;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product {
 
-   // @JsonProperty("id")
-    private int id;
-
-   // @JsonProperty("title")
+    private Integer  id;
     private String title;
-
-    //@JsonProperty("slug")
     private String slug;
-
-    //@JsonProperty("price")
     private double price;
-
-   // @JsonProperty("description")
     private String description;
-
-   // @JsonProperty("category")
     private Category category;  // Reuse the shared Category class
-
-   // @JsonProperty("images")
     private List<String> images;
-
-     //@JsonProperty("creationAt")
-     private String creationAt;
-
-     //@JsonProperty("updatedAt")
-     private String updatedAt;
+    private String creationAt;
+    private String updatedAt;
 
 
-    // Getters and setters
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
