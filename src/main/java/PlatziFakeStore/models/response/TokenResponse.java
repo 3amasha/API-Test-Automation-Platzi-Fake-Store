@@ -1,4 +1,4 @@
-package PlatziFakeStore.models.response.auth;
+package PlatziFakeStore.models.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

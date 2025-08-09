@@ -2,14 +2,13 @@ package PlatziFakeStore.tests.products;
 
 import PlatziFakeStore.base.BaseAPI;
 import PlatziFakeStore.clients.ProductsClient;
-import PlatziFakeStore.models.response.products.Product;
+import PlatziFakeStore.models.response.Product;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
 
 /**

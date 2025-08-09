@@ -1,7 +1,6 @@
-package PlatziFakeStore.models.response.products;
+package PlatziFakeStore.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import PlatziFakeStore.models.response.categories.Category;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;

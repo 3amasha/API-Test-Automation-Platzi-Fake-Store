@@ -3,10 +3,8 @@ package PlatziFakeStore.tests.categories;
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
 import PlatziFakeStore.clients.CategoriesClient;
-import PlatziFakeStore.clients.ProductsClient;
 import PlatziFakeStore.models.request.categories.CreateCategoryRequest;
-import PlatziFakeStore.models.response.categories.Category;
-import PlatziFakeStore.models.response.products.Product;
+import PlatziFakeStore.models.response.Category;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -14,7 +12,6 @@ import org.testng.annotations.Test;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;

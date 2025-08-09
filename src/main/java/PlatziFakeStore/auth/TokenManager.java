@@ -1,17 +1,5 @@
 package PlatziFakeStore.auth;
 
-import PlatziFakeStore.base.APIResources;
-import PlatziFakeStore.base.BaseAPI;
-import PlatziFakeStore.clients.AuthClient;
-import PlatziFakeStore.config.ConfigManager;
-import PlatziFakeStore.models.request.auth.LoginRequest;
-import PlatziFakeStore.models.response.auth.TokenResponse;
-import io.restassured.response.Response;
-
-import java.util.Map;
-
-import static PlatziFakeStore.base.BaseAPI.getRequestSpec;
-
 /**
  * TokenManager
  * -------------------------------------------------

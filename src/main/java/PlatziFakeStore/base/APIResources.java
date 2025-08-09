@@ -28,7 +28,7 @@ public enum APIResources {
     DELETE_CATEGORY("/categories/{id}"),
 
     // ------------------ Users ------------------
-    GET_ALL_USERS("/users"),
+    GET_ALL_USERS("/users/"),
     GET_USER_BY_ID("/users/{id}"),
     CREATE_USER("/users"),
     UPDATE_USER("/users/{id}"),

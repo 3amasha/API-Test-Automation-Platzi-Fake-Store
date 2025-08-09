@@ -3,10 +3,8 @@ package PlatziFakeStore.clients;
 import PlatziFakeStore.base.BaseAPI;
 import PlatziFakeStore.models.request.products.CreateProductRequest;
 import PlatziFakeStore.base.APIResources;
-import PlatziFakeStore.models.response.products.Product;
+import PlatziFakeStore.models.response.Product;
 import io.restassured.response.Response;
-
-import java.security.PublicKey;
 
 import static io.restassured.RestAssured.given;
 

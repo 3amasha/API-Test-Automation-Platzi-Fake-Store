@@ -3,11 +3,7 @@ package PlatziFakeStore.clients;
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
 import PlatziFakeStore.models.request.categories.CreateCategoryRequest;
-import PlatziFakeStore.models.response.categories.Category;
-import PlatziFakeStore.models.response.products.Product;
 import io.restassured.response.Response;
-
-import java.util.Calendar;
 
 import static io.restassured.RestAssured.given;
 

@@ -1,4 +1,4 @@
-package PlatziFakeStore.models.response.categories;
+package PlatziFakeStore.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
