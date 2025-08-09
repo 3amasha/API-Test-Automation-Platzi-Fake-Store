@@ -2,7 +2,7 @@ package PlatziFakeStore.clients;
 
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
-import PlatziFakeStore.models.request.categories.CreateCategoryRequest;
+import PlatziFakeStore.models.request.CreateCategoryRequest;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;

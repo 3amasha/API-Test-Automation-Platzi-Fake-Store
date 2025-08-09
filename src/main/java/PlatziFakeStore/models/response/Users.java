@@ -1,8 +1,10 @@
 package PlatziFakeStore.models.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Users {
 
         private Integer id;
@@ -14,6 +16,19 @@ public class Users {
         private String creationAt;
         private String updatedAt;
 
+        public Users() {
+            // Default constructor
+        }
+        public Users(Integer id, String email, String password, String name, String role, String avatar, String creationAt, String updatedAt) {
+            this.id = id;
+            this.email = email;
+            this.password = password;
+            this.name = name;
+            this.role = role;
+            this.avatar = avatar;
+            this.creationAt = creationAt;
+            this.updatedAt = updatedAt;
+        }
         public Integer getId() {
             return id;
         }

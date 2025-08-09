@@ -30,7 +30,7 @@ public enum APIResources {
     // ------------------ Users ------------------
     GET_ALL_USERS("/users/"),
     GET_USER_BY_ID("/users/{id}"),
-    CREATE_USER("/users"),
+    CREATE_USER("/users/"),
     UPDATE_USER("/users/{id}"),
     DELETE_USER("/users/{id}"),
 

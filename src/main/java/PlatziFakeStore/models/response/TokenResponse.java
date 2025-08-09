@@ -1,7 +1,9 @@
 package PlatziFakeStore.models.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TokenResponse {
     //TODO : Complete the class
     @JsonProperty("access_token")
