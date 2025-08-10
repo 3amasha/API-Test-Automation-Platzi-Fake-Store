@@ -1,1 +1,0 @@
-{"uuid":"21c023b4-3855-49e3-bc8b-13fcd50b192b","name":"PlatziFakeStore.tests.users.UsersTests","children":["bcf2e47e-fd3f-411e-87b8-b3d41db2a2cd"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1754762463351,"stop":1754762463359}],"afters":[],"start":1754762463303,"stop":1754762467337}

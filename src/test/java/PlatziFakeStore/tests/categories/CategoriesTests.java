@@ -2,6 +2,7 @@ package PlatziFakeStore.tests.categories;
 
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
+import PlatziFakeStore.base.BaseTest;
 import PlatziFakeStore.clients.CategoriesClient;
 import PlatziFakeStore.models.request.CreateCategoryRequest;
 import PlatziFakeStore.models.response.Category;
@@ -16,7 +17,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;
 
-public class CategoriesTests {
+public class CategoriesTests extends BaseTest {
 
     private CategoriesClient categoriesClient = new CategoriesClient();
     private int validCategoryId = 1;

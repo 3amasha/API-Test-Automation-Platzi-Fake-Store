@@ -2,6 +2,7 @@ package PlatziFakeStore.tests.users;
 
 import PlatziFakeStore.base.APIResources;
 import PlatziFakeStore.base.BaseAPI;
+import PlatziFakeStore.base.BaseTest;
 import PlatziFakeStore.clients.ProductsClient;
 import PlatziFakeStore.clients.UsersClient;
 import PlatziFakeStore.models.request.CreateUserRequest;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class UsersTests {
+public class UsersTests extends BaseTest {
     private UsersClient usersClient;
     private int validUserId = 1;
     private int updateUserId = 90;

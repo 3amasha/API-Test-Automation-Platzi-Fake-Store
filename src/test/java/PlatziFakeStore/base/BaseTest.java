@@ -7,6 +7,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
+
 /**
  * BaseTest
  * - Provides common setup and teardown logic for API tests.
@@ -15,16 +17,31 @@ import org.testng.annotations.BeforeSuite;
  */
 public abstract class BaseTest {
 // TODO : Edit file
-    /**
-     * Executes once before the entire test suite.
-     * Ideal for global initializations (e.g., logging config, env info).
-     */
-    @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
-        // Print environment info for reference
-        System.out.println("=== Starting API Test Suite ===");
-        //System.out.println("Environment: " + ConfigManager.getEnvironment());
-        System.out.println("Base URL: " + ConfigManager.getBaseUrl());
+
+    @BeforeSuite(alwaysRun = true) // Runs before all tests in the suite
+    public void cleanAllureResults() {
+        File allureResults = new File("allure-results");
+
+        if (allureResults.exists() && allureResults.isDirectory()) {
+            deleteDirectory(allureResults);
+            System.out.println("✅ Cleared: target/allure-results");
+        } else {
+            System.out.println("ℹ No allure-results folder found to delete.");
+        }
+    }
+
+    // Recursive delete method
+    private void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                }
+                file.delete();
+            }
+        }
+        directory.delete();
     }
 
     /**

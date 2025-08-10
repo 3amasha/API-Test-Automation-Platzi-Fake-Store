@@ -1,6 +1,7 @@
 package PlatziFakeStore.tests.products;
 
 import PlatziFakeStore.base.BaseAPI;
+import PlatziFakeStore.base.BaseTest;
 import PlatziFakeStore.clients.ProductsClient;
 import PlatziFakeStore.models.response.Product;
 import io.restassured.response.Response;
@@ -16,7 +17,7 @@ import java.util.List;
  * - Covers positive and negative scenarios.
  * - Uses POJOs for response deserialization.
  */
-public class ProductsTests {
+public class ProductsTests extends BaseTest {
 
     private ProductsClient productsClient;
     private int validProductId = 1;

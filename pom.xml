@@ -20,6 +20,7 @@
         <commons-codec-version>1.18.0</commons-codec-version>
         <gsonParserVersion>2.13.1</gsonParserVersion>
         <allure-testng-version>2.29.1</allure-testng-version>
+        <allure-java-commons_version>2.29.1</allure-java-commons_version>
         <jackson-databind-version>2.19.2</jackson-databind-version>
 
     </properties>
@@ -74,6 +75,20 @@
             <version>${allure-testng-version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-java-commons -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>${allure-java-commons_version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-maven</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -82,5 +97,23 @@
         </dependency>
 
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.15.2</version>
+                <configuration>
+                    <reportVersion>2.29.0</reportVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
+
 
 </project>
