@@ -1,7 +1,7 @@
 
 # 🚀 API Testing Automation Project
 
-![Java](https://img.shields.io/badge/Java-17-orange)
+![Java](https://img.shields.io/badge/Java-21-orange)
 ![Maven](https://img.shields.io/badge/Maven-4.0-blue)
 ![TestNG](https://img.shields.io/badge/TestNG-Testing-lightgrey)
 ![RestAssured](https://img.shields.io/badge/RestAssured-API-green)
@@ -39,7 +39,7 @@ This project demonstrates **end-to-end API testing**, starting with manual verif
 
    * Analyze API documentation.
    * Validate endpoints using Postman.
-   * Document scenarios in **Excel** & **Zephyr**.
+   * Document test case & scenarios in **Excel**.
 
 2. **Postman Automation**
 
@@ -59,13 +59,13 @@ This project demonstrates **end-to-end API testing**, starting with manual verif
 
 | Tool             | Purpose                         |
 | ---------------- | ------------------------------- |
-| **Java 17**      | Core programming language       |
+| **Java 21**      | Core programming language       |
 | **Maven**        | Build & dependency management   |
 | **TestNG**       | Test management & annotations   |
 | **Rest Assured** | API testing framework           |
 | **Allure**       | Test reporting & visualization  |
 | **Postman**      | Manual & pre-automation testing |
-| **Zephyr**       | Test case management            |
+| **excel**        | Test case documenting           |
 
 ---
 
@@ -88,106 +88,20 @@ api-testing-automation/
 ├── src
 │   ├── main/java
 │   │   ├── auth/                # Authentication & TokenManager
+│   │   ├── base/                # Request/Response Specifications logic & Enum for all endpoint paths
 │   │   ├── clients/             # API clients (Categories, Products, Users)
 │   │   ├── models/              # POJOs for request/response
-│   │   └── utils/               # Configurations & helpers
+│   │   └── config/              # Configurations & Loads values from config.properties
 │   │
 │   └── test/java
 │       ├── base/                # Base classes for setup
 │       └── tests/               # Test classes
 │
 ├── pom.xml                       # Maven dependencies
-├── postman_collection.json       # Postman collection
+├── resources                     # Base URL, credentials, etc.
 ├── target/allure-results/        # Raw Allure files
 └── README.md                     # Project documentation
 ```
-
----
-
-## ⚙️ Setup & Installation
-
-### **1. Clone the Repository**
-
-```bash
-git clone https://github.com/your-username/api-testing-automation.git
-cd api-testing-automation
-```
-
-### **2. Install Dependencies**
-
-```bash
-mvn clean install
-```
-
-### **3. Configure Environment**
-
-* Update `config.properties` with:
-
-  * `baseUrl`
-  * API credentials (email/password)
-
----
-
-## 🧪 Test Execution
-
-### Run All Tests:
-
-```bash
-mvn clean test
-```
-
-### Run a Specific Test Class:
-
-```bash
-mvn -Dtest=CategoriesTests test
-```
-
-### Run With testng.xml Suite:
-
-```bash
-mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
-```
-
----
-
-## 📊 Allure Reporting
-
-Generate and view Allure reports:
-
-```bash
-allure serve target/allure-results
-```
-
-> **Note:**
-> A `@BeforeSuite` TestNG hook clears `target/allure-results` before each run to prevent old results.
-
-**Allure Features:**
-
-* Pass/Fail trends
-* Request & Response logs
-* Visual step breakdown
-
----
-
-## 🔹 Postman Integration
-
-The provided Postman collection:
-
-* Uses **dynamic variables** for unique data:
-
-  * `{{currentIsoTimestamp}}` for unique names/emails.
-* Stores access tokens dynamically after login.
-
-**Example Body With Variables:**
-
-```json
-{
-  "name": "Postman Category {{currentIsoTimestamp}}",
-  "image": "https://placehold.co/600x400"
-}
-```
-
-Run with external JSON/CSV files for data-driven testing.
 
 ---
 
@@ -213,25 +127,11 @@ Run with external JSON/CSV files for data-driven testing.
 
 ---
 
-## 🤝 Contributing
-
-Pull requests are welcome!
-Please open an issue first to discuss proposed changes.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
 ## 👤 Author
 
 **Amr Amasha**
-Passionate QA Engineer specializing in **API testing**, **test automation**, and **framework design**.
-[LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/)
+Passionate Software Testing Engineer specializing in **manual testing**. **API testing** and **test automation**.
+[LinkedIn]([https://www.linkedin.com/in/amr-amasha-919b79215/]) | [GitHub]([https://github.com/3amasha]) 
+| [Resume](https://drive.google.com/file/d/1xxxq2QPXRtskyLWUY2ZKfH2DMT8dvkl3/view?usp=drive_link)
 
----
 
-Would you like me to include **GitHub badges for build status and test coverage** to make it even more professional?
