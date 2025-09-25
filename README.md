@@ -20,10 +20,6 @@
 * [Tech Stack](#-tech-stack)
 * [Modules Tested](#-modules-tested)
 * [Project Structure](#-project-structure)
-* [Setup & Installation](#️-setup--installation)
-* [Test Execution](#-test-execution)
-* [Allure Reporting](#-allure-reporting)
-* [Postman Integration](#-postman-integration)
 * [Sample Test Scenarios](#-sample-test-scenarios)
 * [Future Enhancements](#-future-enhancements)
 
@@ -131,7 +127,7 @@ api-testing-automation/
 
 **Amr Amasha**
 Passionate Software Testing Engineer specializing in **manual testing**. **API testing** and **test automation**.
-[LinkedIn]([https://www.linkedin.com/in/amr-amasha-919b79215/]) | [GitHub]([https://github.com/3amasha]) 
+[LinkedIn](https://www.linkedin.com/in/amr-amasha-919b79215/) | [GitHub](https://github.com/3amasha) 
 | [Resume](https://drive.google.com/file/d/1xxxq2QPXRtskyLWUY2ZKfH2DMT8dvkl3/view?usp=drive_link)
 
 
