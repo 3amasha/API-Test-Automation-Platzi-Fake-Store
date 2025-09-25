@@ -1,7 +1,7 @@
 
 # 🚀 API Testing Automation Project
 
-![Java](://img.shields.io/badge/Java-17-orange)
+![Java](https://img.shields.io/badge/Java-17-orange)
 ![Maven](https://img.shields.io/badge/Maven-4.0-blue)
 ![TestNG](https://img.shields.io/badge/TestNG-Testing-lightgrey)
 ![RestAssured](https://img.shields.io/badge/RestAssured-API-green)
